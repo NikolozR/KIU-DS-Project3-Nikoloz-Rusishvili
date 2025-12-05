@@ -11,11 +11,7 @@ This project performs an exploratory data analysis (EDA) on a student performanc
    ```bash
    pip install -r requirements.txt
    ```
-2. Generate the dataset (if not already present) by running the provided generator script:
-   ```bash
-   python generate_project3_data.py
-   ```
-3. Run the main analysis script:
+2. Run the main analysis script:
    ```bash
    python Project3_Nikoloz_Rusishvili.py
    ```
