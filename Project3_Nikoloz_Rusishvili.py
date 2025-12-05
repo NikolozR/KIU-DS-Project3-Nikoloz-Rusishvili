@@ -1,7 +1,10 @@
 """
 Project 3: Data Visualization & EDA
 Name: Nikoloz Rusishvili
-Date: 2025-12-05
+Date: 2025-12-06
+Honor Code: I certify this work is my own
+
+Note: This script generates visualizations. Run it to see all plots.
 """
 
 import pandas as pd
@@ -10,7 +13,7 @@ import seaborn as sns
 import numpy as np
 
 try:
-    df = pd.read_csv('student_performance.csv')
+    df = pd.read_csv('data/student_performance.csv')
 except FileNotFoundError:
     print("Error: student_performance.csv not found. Please run generate_project3_data.py first.")
     exit()
@@ -183,11 +186,11 @@ plt.text(0.95, 0.05, stats_text, transform=plt.gca().transAxes,
 
 plt.tight_layout()
 # Savfig to file
-plt.savefig('task1_customized_scatter.png', dpi=300)
+plt.savefig('figures/task1_customized_scatter.png', dpi=300)
 # plt.show()
 
 # 2. Save the Subplot from Part B
-fig.savefig('task1_subplot_overview.png', dpi=300)
+fig.savefig('figures/task1_subplot_overview.png', dpi=300)
 
 
 
@@ -302,7 +305,11 @@ facet_grid.map(sns.scatterplot, 'Attendance_Rate', 'Current_GPA', alpha=0.6, edg
 # plt.show() # Uncomment to view individually
 
 
-# Task 3: Comprehensive Visual Story
+# ==========================================
+# 2.3 Task 3: Comprehensive Visual Story
+# ==========================================
+print("\nGenerating Task 3 Visual Dashboard...")
+
 # --- Part A: Research Questions ---
 """
 Research Questions:
@@ -314,7 +321,7 @@ Research Questions:
 
 # --- Part B: Visual Dashboard ---
 
-
+# Create a comprehensive dashboard (Figure) with GridSpec
 fig = plt.figure(figsize=(20, 15))
 gs = fig.add_gridspec(3, 3)
 fig.suptitle('Comprehensive Student Performance Analysis Dashboard', fontsize=24, weight='bold')
@@ -341,7 +348,7 @@ cb = fig.colorbar(hb, ax=ax3)
 cb.set_label('Count')
 
 # 4. Comparative Analysis: Performance by Major (Boxplot)
-ax4 = fig.add_subplot(gs[1, :])
+ax4 = fig.add_subplot(gs[1, :]) # Spans all columns in middle row
 sns.boxplot(data=df, x='Major', y='Current_GPA', palette='Set3', ax=ax4)
 ax4.set_title('GPA Distribution by Major', fontsize=14)
 
@@ -372,30 +379,6 @@ summary_text = (
 ax7.text(0.5, 0.5, summary_text, ha='center', va='center', fontsize=12, wrap=True,
          bbox=dict(boxstyle='round,pad=1', facecolor='lightyellow', alpha=0.5))
 
-plt.tight_layout(rect=[0, 0.03, 1, 0.96])
-plt.savefig('task3_dashboard.png', dpi=300)
+plt.tight_layout(rect=[0, 0.03, 1, 0.96]) # Adjust for main suptitle
+plt.savefig('figures/task3_dashboard.png', dpi=300)
 plt.show()
-
-# --- Part C: Insights & Recommendations (Text Analysis) ---
-"""
-
-INSIGHTS & RECOMMENDATIONS
-1.	Main Findings:
-	•	Study Hours: it’s super clear that the more you study, the higher GPA you end up having. It’s kinda linear — people who put in hours get results.
-	•	Attendance: if someone attends >80% classes, their GPA is usually high too. Low attendance is basically a red flag.
-	•	Scholarship Kids: students with scholarships have more “tight” GPA range and usually higher attendance. Probably they’re more motivated or maybe scholarships already pick strong students.
-	•	Majors: overall GPA between majors is kinda similar, but majors like Math/Science have more spread (some ppl do super good, some do bad).
-
-2.	Patterns / Interpretation:
-	•	The “Study Hours vs GPA” plot pretty much confirms that the main factor of good grades is just effort/time.
-	•	In the “Attendance vs GPA” plot, the weird points (high attendance but low GPA) maybe mean students do attend but the material is too hard or not clicking for them.
-
-3.	Recommendations (practical stuff):
-	•	Students: try to do like 15–20 hours of studying per week at minimum. Also, going to classes helps a lot, don’t skip if possible.
-	•	University: they should check on students whose attendance falls below like 75%. Maybe give them help earlier. Also, majors like Math/Science probably need some extra tutoring or support, cause many students struggle.
-	•	At-risk groups: students without scholarships + those who also work part-time might need help like flexible class schedules or maybe info/aid about financial support.
-
-4.	Limitations:
-	•	Not causation: Yeah, study hours correlate with GPA but that doesn’t automatically prove one causes the other.
-	•	Missing factors: stuff like mental health, prior school quality, or if a student actually likes their major can affect GPA too, but we don’t have that data here.
-"""
